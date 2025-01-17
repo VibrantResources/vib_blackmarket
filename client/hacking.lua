@@ -35,6 +35,8 @@ RegisterNetEvent("blackmarket:client:GetCode", function(data)
 
     lib.requestAnimDict("amb@world_human_bum_wash@male@low@idle_a")
     TaskPlayAnim(player, 'amb@world_human_bum_wash@male@low@idle_a', 'idle_a', 1.0, 1.0, -1, 01, 0, true, true, true)
+    RemoveAnimDict('amb@world_human_bum_wash@male@low@idle_a')
+    
     local success = exports.bl_ui:CircleSum(4, {
         length = 5,
         duration = 6000,

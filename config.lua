@@ -1,9 +1,9 @@
 Config = Config or {}
 
 Config.Debug = false
-Config.UseAnims = true -- false = Peds have no animations and just stand still
-Config.MoneyItem = "black_money" -- Currency item used to make purchases with market peds
-Config.HeadBagProp = "prop_money_bag_01" -- Prop placed on players head when entering black market
+Config.UseAnims = true -- set to false if you want peds to be static with no animations
+Config.DirtyMoneyItem = "black_money" -- Currency item used to make purchases with market peds
+Config.CleanMoneyItem = "money"
 
 Config.BlackMarketAccess = {
     EntranceInfo = {
@@ -57,7 +57,7 @@ Config.BlackMarketAccess = {
             RepairsPedAnimationDict = "missfbi5ig_15",
             RepairsPedAnimationClip = "look_into_microscope_a_scientista",
             RepairDuration = 5000, -- How long it takes to repair a weapon in ms
-            RepairCost = 175, -- Cost of repairs using [Config.MoneyItem]
+            RepairCost = 175, -- Cost of repairs using [Config.DirtyMoneyItem]
             requiredMoneyType = 'black_money', -- Dirty money item name
         },
         {
@@ -69,20 +69,21 @@ Config.BlackMarketAccess = {
             RepairsPedAnimationDict = "missfbi5ig_15",
             RepairsPedAnimationClip = "look_into_microscope_a_scientista",
             RepairDuration = 7500, -- How long it takes to repair a weapon in ms
-            RepairCost = 35, -- Cost of repairs using [Config.MoneyItem]
+            RepairCost = 35, -- Cost of repairs using [Config.DirtyMoneyItem]
             requiredMoneyType = 'money', -- Clean money item name
         },
     },
 }
 
-Config.MarketPeds = {
+Config.Shops = {
     {
         Name = "Supplies", -- Used for label when targeting ped
+        Type = "buying", -- buying = player buys items here / selling = player sells items here
         Model = "s_m_m_ciasec_01", -- Ped model
         Location = vector4(899.86, -3206.64, -98.19, 114.26), -- Ped location
         AnimationDict = "amb@prop_human_bum_shopping_cart@male@idle_a", -- Dict for animation
         AnimationClip = "idle_c", -- Animation ped plays
-        ItemsForSale = { -- Item / Item Price / Stock amount per restart
+        ItemsToBuy = { -- Item / Item Price / Stock amount per restart
             {name = "lockpick", price = 65, count = 50, currency = "black_money"},
             {name = "screwdriverset", price = 30, count = 15, currency = "black_money"},
             {name = "advancedlockpick", price = 115, count = 25, currency = "black_money"},
@@ -91,11 +92,12 @@ Config.MarketPeds = {
     },
     {
         Name = "Ammo",
+        Type = "buying",
         Model = "s_m_m_fibsec_01",
         Location = vector4(904.74, -3230.82, -99.27, 345.69),
         AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
         AnimationClip = "idle_c",
-        ItemsForSale = {
+        ItemsToBuy = {
             {name = "ammo-9", price = 1, count = 250, currency = "black_money"},
             {name = "ammo-rifle", price = 4, count = 150, currency = "black_money"},
             {name = "ammo-rifle2", price = 5, count = 150, currency = "black_money"},
@@ -105,11 +107,12 @@ Config.MarketPeds = {
     },
     {
         Name = "Attachments",
+        Type = "buying",
         Model = "s_m_m_highsec_01",
         Location = vector4(908.93, -3207.19, -98.19, 115.63),
         AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
         AnimationClip = "idle_c",
-        ItemsForSale = {
+        ItemsToBuy = {
             {name = "at_flashlight", price = 10, count = 10, currency = "black_money"},
             {name = "at_suppressor_light", price = 10, count = 10, currency = "black_money"},
             {name = "at_suppressor_heavy", price = 10, count = 10, currency = "black_money"},
@@ -126,6 +129,22 @@ Config.MarketPeds = {
             {name = "at_scope_medium", price = 10, count = 10, currency = "black_money"},
             {name = "at_scope_large", price = 10, count = 10, currency = "black_money"},
             {name = "at_scope_holo", price = 10, count = 10, currency = "black_money"},
+        },
+    },
+
+    {
+        Name = "Ammo",
+        Type = "selling",
+        Model = "s_m_m_fibsec_01",
+        Location = vector4(908.41, -3226.85, -99.29, 69.18),
+        AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
+        AnimationClip = "idle_c",
+        SellableItems = {
+            {name = "ammo-9", value = math.random(1, 2)},
+            {name = "ammo-rifle", value = math.random(1, 2)},
+            {name = "ammo-rifle2", value = math.random(1, 2)},
+            {name = "ammo-45", value = math.random(1, 2)},
+            {name = "ammo-shotgun", value = math.random(1, 2)},
         },
     },
 }
@@ -208,10 +227,10 @@ Config.EntranceTypes = {
     },
 }
 
-Config.Hacking = { -- Uses box zones
+Config.Hacking = {
     RandomNumberCode = math.random(11111, 99999),
-    RequiredHackingItem = "laptop", -- Item required to begin hack
-    HackingGlobalCooldownInMinutes = 25, -- (0.5 = 30 seconds)
+    RequiredHackingItem = "laptop",
+    HackingGlobalCooldownInMinutes = 25,
     HackingZones = {
         {
             coords = vec3(116.35, -747.4, 45.75),

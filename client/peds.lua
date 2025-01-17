@@ -1,38 +1,52 @@
 CreateThread(function()
-    ---------------
-    --Market Peds--
-    ---------------
+    ----------
+    --Shops--
+    ---------
 
-    for k, v in pairs(Config.MarketPeds) do
+    for _, v in pairs(Config.Shops) do
         lib.requestModel(v.Model, 60000)
-        local marketPed = CreatePed(1, v.Model, v.Location, false, true, false)
+        local shopPed = CreatePed(1, v.Model, v.Location, false, true, false)
 
-        SetEntityInvincible(marketPed, true)
-        SetBlockingOfNonTemporaryEvents(marketPed, true)
-        FreezeEntityPosition(marketPed, true)
+        SetEntityInvincible(shopPed, true)
+        SetBlockingOfNonTemporaryEvents(shopPed, true)
+        FreezeEntityPosition(shopPed, true)
 
         if Config.UseAnims then
             lib.requestAnimDict(v.AnimationDict)
-            TaskPlayAnim(marketPed, v.AnimationDict, v.AnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
+            TaskPlayAnim(shopPed, v.AnimationDict, v.AnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
             
             RemoveAnimDict(v.AnimationDict)
         end
 
-        exports.ox_target:addLocalEntity(marketPed, {
-            {
-                label = 'Trade '..v.Name,
-                onSelect = function()
-                    PlayPedAmbientSpeechNative(v.entity, 'GENERIC_HOWS_IT_GOING', 'Speech_Params_Force')
-                    exports.ox_inventory:openInventory('shop', {
-                        type = v.Name
-                    })
-                end,
-                args = v,
-                icon = 'fa-solid fa-box-archive',
-                iconColor = "yellow",
-                distance = 2, 
-            },
-        })
+        if v.Type == "buying" then
+            exports.ox_target:addLocalEntity(shopPed,  {
+                {
+                    label = 'Trade '..v.Name,
+                    icon = 'fa-solid fa-cart-shopping',
+                    name = k,
+                    onSelect = function()
+                        Wait(100)
+                        PlayPedAmbientSpeechNative(shopPed, 'GENERIC_HI', 'Speech_Params_Force')
+                        exports.ox_inventory:openInventory('shop', {
+                            type = v.Name
+                        })
+                    end,
+                }
+            })
+        elseif v.Type == "selling" then
+            exports.ox_target:addLocalEntity(shopPed,  {
+                {
+                    label = "Sell "..v.Name,
+                    icon = 'fa-solid fa-sack-dollar',
+                    onSelect = function()
+                        Wait(100)
+                        PlayPedAmbientSpeechNative(shopPed, 'GENERIC_HI', 'Speech_Params_Force')
+                        exports.ox_inventory:openInventory('stash', v.Name)
+                    end,
+                }
+            })
+        end
+
         SetModelAsNoLongerNeeded(v.Model)
     end
 
@@ -109,7 +123,7 @@ CreateThread(function()
     --Weapon Repairs--
     ------------------
 
-    for k, v in pairs(Config.BlackMarketAccess.RepairsInfo) do
+    for _, v in pairs(Config.BlackMarketAccess.RepairsInfo) do
         lib.requestModel(v.RepairsPedModel, 60000)
         local repairPed = CreatePed(1, v.RepairsPedModel, v.RepairsPedLocation, false, true, true)
         SetEntityInvincible(repairPed, true)

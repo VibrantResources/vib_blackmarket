@@ -53,7 +53,7 @@ end)
 RegisterNetEvent('blackmarket:client:RepairWeapon', function(data)
     local repairingWeapon = false
     local weaponData = lib.callback.await('blackmarket:server:CheckWeaponData', false)
-    local modelLocation = data.args.spawnedRepairModelLocation
+    local modelLocation = data.args.repairModelLocation
 
     if weaponData == nil then
         return
@@ -83,7 +83,7 @@ RegisterNetEvent('blackmarket:client:RepairWeapon', function(data)
         while repairingWeapon do
             UseParticleFxAssetNextCall('core')
             local sparkEffect = StartNetworkedParticleFxNonLoopedAtCoord('ent_brk_sparking_wires_sp', weaponCoords, 0.0, 0.0, 0.0, 0.3, 0.0, 0.0, 0.0)
-            Wait(300)
+            Wait(200)
         end
     end)
 
