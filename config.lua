@@ -249,65 +249,31 @@ Config.Hacking = {
 --Money Washing--
 -----------------
 
-Config.UseMoneyWashing = true -- Set to false to turn money washing system off
-Config.DirtyMoneyItem = "black_money" -- Dirty money item
-Config.RobDuration = 8 -- How long it takes to rob a store in seconds
-Config.UseableWeapons = { -- List of weapons that are required in a players hand to rob a store
-    'weapon_pistol',
-    'weapon_smg',
-    'weapon_assaultrifle',
-    'weapon_combatpistol',
-    'weapon_crowbar',
-}
-
-Config.Washing = {
+Config.Laundering = {
     {
-        ShopName = "Grapeseed", -- Unique name per shop (Used for cooldowwn  & target name purposes)
-        PedModel = "s_m_m_linecook", -- Ped model
-        PedSpawn = vector4(2439.8, 4977.93, 45.81, 47.18), -- Ped Location
-        WashTime = 25, -- Duration of wash in minutes (I.e 0.5 = 30 seconds)
-        PercentageTakenFromPlayer = 0.285, -- % of money taken by NPC after washing money (1.0 = 100%)
-        PlayAnim = true, -- Set to false if [PlayScenario] = true
-        AnimationDict = "missheist_agency3aig_23",
-        AnimationClip = "urinal_sink_loop",
-        PlayScenario = false, -- Set to false if [PlayAnim] = true
-        Scenario = 'WORLD_HUMAN_WELDING',
-    },
-    {
-        ShopName = "Altruist",
-        PedModel = "a_m_y_acult_02",
-        PedSpawn = vector4(-1109.74, 4951.28, 217.35, 247.95),
-        WashTime = 17.5,
-        PercentageTakenFromPlayer = 0.224,
-        PlayAnim = true, -- Set to false if [PlayScenario] or [IsPedArmed] = true
-        AnimationDict = "timetable@ron@ig_5_p3",
-        AnimationClip = "ig_5_p3_base",
-        PlayScenario = false, -- Set to false if [PlayAnim] = true
-        Scenario = 'WORLD_HUMAN_WELDING',
-    },
-    {
-        ShopName = "Sandy",
-        PedModel = "a_f_m_tramp_01",
-        PedSpawn = vector4(1515.51, 3570.16, 37.73, 72.83),
-        WashTime = 10,
-        PercentageTakenFromPlayer = 0.395,
-        PlayAnim = true, -- Set to false if [PlayScenario] or [IsPedArmed] = true
-        AnimationDict = "anim@amb@business@bgen@bgen_no_work@",
-        AnimationClip = "sit_phone_phoneputdown_idle_nowork",
-        PlayScenario = false, -- Set to false if [PlayAnim] = true
-        Scenario = 'WORLD_HUMAN_WELDING',
-    },
-    {
-        ShopName = "City Hall",
-        PedModel = "a_m_m_business_01",
-        PedSpawn = vector4(-565.17, -108.91, 38.65, 156.03),
-        WashTime = 20,
-        PercentageTakenFromPlayer = 0.256,
-        PlayAnim = true, -- Set to false if [PlayScenario] or [IsPedArmed] = true
-        AnimationDict = "timetable@reunited@ig_10",
-        AnimationClip = "base_amanda",
-        PlayScenario = false, -- Set to false if [PlayAnim] = true
-        Scenario = 'WORLD_HUMAN_WELDING',
+        shopName = "Grapeseed",
+        pedModel = "s_m_m_linecook",
+        location = vector4(2439.8, 4977.93, 45.81, 47.18),
+        launderTimeInMinutes = 25,
+        percentageTakenFromPlayer = 0.285,
+        animInfo = {
+            active = true, -- Set to false if using scenario below
+            dict = "amb@world_human_aa_smoke@male@idle_a",
+            clip = "idle_c",
+        },
+        -- propInfo = {
+        --     active = true, -- Set to false to have no props
+        --     propModel = "prop_cs_ciggy_01",
+        --     bone = 28422,
+        --     placement = {
+        --         x = 0.0,
+        --         y = 0.0,
+        --         z = 0.0,
+        --         xRot = 0.0,
+        --         yRot = 0.0,
+        --         zRot = 0.0,
+        --     },
+        -- },
     },
 }
 
