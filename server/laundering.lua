@@ -3,7 +3,7 @@ MoneyLaundering = {}
 CreateThread(function()
     for k, v in pairs(Config.Laundering) do
         local launderPed = CreatePed(1, v.pedModel, v.location.x, v.location.y, v.location.z, v.location.w, true, true)
-        Wait(100)
+        Wait(300)
         local serverEntity = NetworkGetNetworkIdFromEntity(launderPed)
 
         if v.animInfo.active then
@@ -16,8 +16,6 @@ CreateThread(function()
             networkId = serverEntity,
         }
     end
-
-    print(json.encode(MoneyLaundering, {indent = true}))
 end)
 
 AddEventHandler("onResourceStop", function(resource)
