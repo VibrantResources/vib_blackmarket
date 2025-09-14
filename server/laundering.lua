@@ -3,6 +3,8 @@ MoneyLaundering = {}
 CreateThread(function()
     for k, v in pairs(Config.Laundering) do
         local launderPed = CreatePed(1, v.pedModel, v.location.x, v.location.y, v.location.z, v.location.w, true, true)
+
+        FreezeEntityPosition(launderPed, true)
         Wait(300)
         local serverEntity = NetworkGetNetworkIdFromEntity(launderPed)
 
@@ -14,6 +16,7 @@ CreateThread(function()
             entity = launderPed,
             currentlyLaundering = false,
             networkId = serverEntity,
+            location = v.location,
         }
     end
 end)

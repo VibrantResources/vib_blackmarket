@@ -1,16 +1,16 @@
-RegisterNetEvent('blackmarket:LaunderMenu', function(data)
+RegisterNetEvent('blackmarket:LaunderMenu', function(launderInfo, clientEntity)
     local player = cache.ped
     local headerMenu = {}
 
-    PlayPedAmbientSpeechNative(data.args.entity, 'GENERIC_HOWS_IT_GOING', 'Speech_Params_Force')
+    PlayPedAmbientSpeechNative(clientEntity, 'GENERIC_HOWS_IT_GOING', 'Speech_Params_Force')
 
     headerMenu[#headerMenu + 1] = {
         title = "Launder Money",
         description = "How much do you want to launder",
         event = 'blackmarket:client:LaunderInput',
         args = {
-            entity = data.args.entity,
-            launderInfo = data.args.launderInfo,
+            entity = clientEntity,
+            launderInfo = launderInfo,
         },
         icon = 'fa-solid fa-question',
         iconColor = "yellow",
