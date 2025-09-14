@@ -11,12 +11,15 @@ shared_scripts {
 }
 
 server_scripts  {
-	'server/*.lua'
+	'server/*.lua',
+	'server/laundering/*.lua',
 }
 
 client_scripts {
 	'client/*.lua',
+	'client/laundering/*.lua',
 	'menus/*.lua',
+	'menus/laundering/*.lua',
 	'ambient_peds/*.lua'
 }
 
