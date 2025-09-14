@@ -12,11 +12,15 @@ CreateThread(function()
             TaskPlayAnim(launderPed, v.animInfo.dict, v.animInfo.clip, 4.0, 4.0, -1, 1, false, false, false, false)
         end
 
-        MoneyLaundering[k] = {
+        MoneyLaundering[v.launderName] = {
+            launderName = v.launderName,
             entity = launderPed,
-            currentlyLaundering = false,
             networkId = serverEntity,
             location = v.location,
+            currentlyLaundering = false,
+            launderAmount = 0,
+            launderPercentageLoss = v.percentageTakenFromPlayer,
+            launderDuration = v.launderTimeInMinutes,
         }
     end
 end)
@@ -35,4 +39,15 @@ end)
 lib.callback.register('blackmarket:server:GetLaunderInfo', function(source)
 
     return MoneyLaundering
+end)
+
+RegisterNetEvent('blackmarket:server:BeginLaundering', function(locationInfo, launderValue, clientEntity)
+    local player = QBCore.Functions.GetPlayer(source)
+
+    if exports.ox_inventory:RemoveItem(source, 'black_money', launderValue) then
+        MoneyLaundering[locationInfo.launderName].currentlyLaundering = true
+        MoneyLaundering[locationInfo.launderName].launderAmount = launderValue
+    end
+
+    print(json.encode(MoneyLaundering[locationInfo.launderName], {indent = true}))
 end)

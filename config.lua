@@ -251,7 +251,7 @@ Config.Hacking = {
 
 Config.Laundering = {
     {
-        shopName = "Grapeseed",
+        launderName = "Grapeseed",
         pedModel = "s_m_m_linecook",
         location = vector4(2439.8, 4977.93, 45.81, 47.18),
         launderTimeInMinutes = 25,

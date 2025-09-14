@@ -1,6 +1,16 @@
-RegisterNetEvent('blackmarket:client:LaunderInput', function()
+RegisterNetEvent('blackmarket:client:LaunderInput', function(data, clientEntity)
     local player = cache.ped
     local moneyAmount = exports.ox_inventory:Search('count', Config.DirtyMoneyItem)
+
+    if moneyAmount <= 0 then
+        lib.notify({
+            title = 'Unable',
+            description = "You don't have any money for me",
+            type = 'error'
+        })
+
+        return
+    end
 
     local input = lib.inputDialog("Laundering", {
         {
@@ -17,4 +27,6 @@ RegisterNetEvent('blackmarket:client:LaunderInput', function()
     if not input or not input[1] then
         return
     end
+
+    TriggerServerEvent('blackmarket:server:BeginLaundering', data.launderInfo, input[1], clientEntity)
 end)
