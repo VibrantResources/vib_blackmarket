@@ -75,6 +75,54 @@ Config.BlackMarketAccess = {
     },
 }
 
+-----------
+--Experts--
+-----------
+
+Config.Experts = {
+    Explosives = {
+        active = false, -- False means the ped/target won't create
+        pedModel = "a_m_m_eastsa_02",
+        pedName = "Explosives Expert",
+        Location = vector4(931.12, -3201.67, -99.27, 107.98),
+        animationDict = "amb@world_human_hang_out_street@female_arms_crossed@idle_a",
+        animationClip = "idle_a",
+        ExtinguisherBorrowDurationInSeconds = 2,
+        TestableExplosives = { -- Use some logic ... If it's throwable, then it's location belongs in [ThrowExplosivesLocations] etc
+            'weapon_grenade',
+            'weapon_smokegrenade',
+        },
+        PlantExplosiveLocation = { -- Locations where a player will be asked to plant explosives
+            vector3(935.72, -3212.24, -98.28),
+        },
+        ThrowExplosivesLocations = { -- Locations where a player will be asked to throw explosives
+            vector3(934.69, -3214.96, -99.07),
+            vector3(928.4, -3216.56, -99.07),
+            vector3(933.85, -3221.91, -98.29),
+            vector3(937.24, -3226.05, -98.29),
+            vector3(930.2, -3222.24, -98.28),
+        },
+    },
+    Vehicles = {
+        active = true, -- False means the ped/target won't create
+        pedModel = "a_m_m_eastsa_02",
+        pedName = "Vehicles Expert",
+        Location = vector4(831.17, -3241.23, -99.7, 313.76),
+        animationDict = "amb@world_human_hang_out_street@female_arms_crossed@idle_a",
+        animationClip = "idle_a",
+        respray = {
+            cost = 1500, -- This will be using Config.DirtyMoneyItem
+            LengthOfResprayInSeconds = 10, -- How long it takes to respray your car
+            resprayPolyzoneLocation = {
+                vec3(836.29, -3242.85, -99.0),
+                vec3(836.0, -3237.0, -99.0),
+                vec3(833.0, -3237.0, -99.0),
+                vec3(832.0, -3242.0, -99.0),
+            },
+        },
+    },
+}
+
 Config.Shops = {
     {
         Name = "Supplies", -- Used for label when targeting ped

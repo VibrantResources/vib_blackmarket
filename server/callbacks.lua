@@ -17,3 +17,27 @@ lib.callback.register('blackmarket:server:GenerateNumberCode', function(source)
     
     return correctCode
 end)
+
+lib.callback.register('blackmarket:server:AttachCar', function(source, vehicleToAttach)
+    local player = QBCore.Functions.GetPlayer(source)
+
+    if not player then
+        return
+    end
+
+    if not isCarAttached then
+        isCarAttached = vehicleToAttach
+
+        return true
+    end
+
+    if isCarAttached then
+        lib.notify(source, {
+            title = 'Unable',
+            description = "Wait your turn like everyone else",
+            type = 'error'
+        })
+
+        return false
+    end
+end)

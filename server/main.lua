@@ -6,6 +6,8 @@ math.randomseed(os.time())
 --Variables--
 -------------
 
+isCarAttached = false
+
 ----------
 --Events--
 ----------
