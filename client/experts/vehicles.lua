@@ -28,8 +28,10 @@ RegisterNetEvent('blackmarket:client:ResprayVehicle', function()
     end
     local ptfxAsset = lib.requestNamedPtfxAsset('core')
     isSpraying = true
+    FreezeEntityPosition(playerVehicle, true)
+    TaskLeaveVehicle(player, playerVehicle, 0)
 
-    -- Find correct PTFX to cover the car cahnging colours
+    -- Find correct PTFX to cover the car changing colours
 
     CreateThread(function()
         while true do
@@ -40,7 +42,7 @@ RegisterNetEvent('blackmarket:client:ResprayVehicle', function()
             end
 
             UseParticleFxAssetNextCall(ptfxAsset)
-            local ptfx = StartNetworkedParticleFxNonLoopedAtCoord('ent_amb_smoke_general', vehicleCoords.x, vehicleCoords.y, vehicleCoords.z, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0)
+            local ptfx = StartNetworkedParticleFxNonLoopedAtCoord('ent_amb_smoke_general', vehicleCoords.x, vehicleCoords.y, vehicleCoords.z, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0)
         end
     end)
 
@@ -49,4 +51,5 @@ RegisterNetEvent('blackmarket:client:ResprayVehicle', function()
     SetVehicleColours(playerVehicle, math.random(1, 159), math.random(1, 159))
     RemovePtfxAsset(ptfxAsset)
     isSpraying = false
+    FreezeEntityPosition(playerVehicle, false)
 end)

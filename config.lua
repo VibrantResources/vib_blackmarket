@@ -1,6 +1,6 @@
 Config = Config or {}
 
-Config.Debug = true
+Config.Debug = false
 Config.UseAnims = true -- set to false if you want peds to be static with no animations
 Config.DirtyMoneyItem = "black_money" -- Currency item used to make purchases with market peds
 Config.CleanMoneyItem = "money"
