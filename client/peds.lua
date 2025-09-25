@@ -149,47 +149,4 @@ CreateThread(function()
         })
         SetModelAsNoLongerNeeded(v.RepairsPedModel)
     end
-
-    -----------------
-    --Money Washing--
-    -----------------
-
-    if Config.UseMoneyWashing then
-        for _, shop in pairs(Config.Washing) do
-            lib.requestModel(shop.PedModel, 60000)
-    
-            local shopKeeper = CreatePed(1, shop.PedModel, shop.PedSpawn, false, true, false)
-            SetEntityInvincible(shopKeeper, true)
-            SetBlockingOfNonTemporaryEvents(shopKeeper, true)
-            FreezeEntityPosition(shopKeeper, true)
-
-            if shop.PlayAnim then
-                lib.requestAnimDict(shop.AnimationDict)
-                TaskPlayAnim(shopKeeper, shop.AnimationDict, shop.AnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
-            end
-    
-            if shop.PlayScenario then
-                TaskStartScenarioInPlace(shopKeeper, shop.Scenario)
-            end
-
-            
-    
-            exports.ox_target:addLocalEntity(shopKeeper, {
-                {
-                    label = "Speak to "..shop.ShopName.." washer",
-                    event = 'blackmarket:WashMenu',
-                    args = {
-                        shop = shop,
-                        shopPed = shopKeeper,
-                    },
-                    icon = "fa-solid fa-basket-shopping",
-                    iconColor = "white",
-                    distance = 2,
-                },
-            })
-            SetModelAsNoLongerNeeded(shop.PedModel)
-
-            TriggerServerEvent('blackmarket:server:UpdateStores', shop)
-        end
-    end
 end)
