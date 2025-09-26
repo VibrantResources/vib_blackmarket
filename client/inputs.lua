@@ -5,15 +5,12 @@ RegisterNetEvent("blackmarket:RiddleInput", function()
 
     math.randomseed(GetGameTimer())
 
-    -- Randomise the options first
     local randomised = {}
     for _, answer in ipairs(riddle.Answers) do
         local key = math.random(1, #randomised + 1)
         table.insert(randomised, key, answer)
     end
 
-    -- Then build our options - this is because otherwise the value will be out of sync with the
-    -- actual key.
     for k, answer in ipairs(randomised) do
         table.insert(options, {
             value = k,
