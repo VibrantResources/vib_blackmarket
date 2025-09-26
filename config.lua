@@ -8,27 +8,29 @@ Config.CleanMoneyItem = "money"
 Config.BlackMarketAccess = {
     EntranceInfo = {
         EntranceLandingLocation = vector4(892.62, -3245.87, -98.28, 73.49), -- Where the player lands after being teleported inside
-        EntranceLocations = { -- Randomly selected upon server/resource restart
-            {
-                pedModel = "a_m_m_hasjew_01",
-                location = vector4(726.63, 4190.56, 39.7, 258.79),
-                animInfo = {
-                    active = true,
-                    dict = "amb@world_human_aa_smoke@male@idle_a",
-                    clip = "idle_c",
-                },
-                propInfo = {
-                    active = true,
-                    propModel = "prop_cs_ciggy_01",
-                    bone = 28422,
-                    placement = {
-                        x = 0.0,
-                        y = 0.0,
-                        z = 0.0,
-                        xRot = 0.0,
-                        yRot = 0.0,
-                        zRot = 0.0,
-                    },
+        EntranceLocations = { -- Randomly selected location the entrance ped could spawn in per restart
+            vector4(726.63, 4190.56, 39.7, 258.79),
+        },
+        pedInfo = {
+            pedModels = { -- Randomly selected model the ped can spawn in as per restart
+                "a_m_m_hasjew_01",
+            },
+            animInfo = {
+                active = true,
+                dict = "amb@world_human_aa_smoke@male@idle_a",
+                clip = "idle_c",
+            },
+            propInfo = {
+                active = true,
+                propModel = "prop_cs_ciggy_01",
+                bone = 28422,
+                placement = {
+                    x = 0.0,
+                    y = 0.0,
+                    z = 0.0,
+                    xRot = 0.0,
+                    yRot = 0.0,
+                    zRot = 0.0,
                 },
             },
         },
@@ -209,69 +211,6 @@ Config.EntranceTypes = {
             },
             Correct_Answer = "4-4-5-3", -- Must match one of the [Answers] above
         },
-        {
-            Question = "How many vehicles are currently on LSPD's watch list?",
-            Answers = {
-                "75",
-                "60",
-                "115",
-                "22",
-            },
-            Correct_Answer = "60",
-        },
-        {
-            Question = "How many families are within this city?",
-            Answers = {
-                "Three",
-                "Four",
-                "Seven",
-                "Fifteen",
-            },
-            Correct_Answer = "Three",
-        },
-        {
-            Question = "What time does the security on the power grid clock off?",
-            Answers = {
-                "00:00am",
-                "12:00pm",
-                "08:00am",
-                "17:00pm",
-            },
-            Correct_Answer = "12:00pm",
-        },
-        {
-            Question = "Mind telling me where you'd get a boost contract from?",
-            Answers = {
-                "Sandy Shores race track",
-                "Casino",
-                "Franks Emoprium",
-                "Southside",
-                "Paleto bay garage"
-            },
-            Correct_Answer = "Sandy Shores race track",
-        },
-        {
-            Question = "Do you know where to get some good stuff?",
-            Answers = {
-                "The Nudist colony",
-                "The back of that southside restaurant",
-                "Paleto bay docks",
-                "The oil refinery",
-                "You could always grow your own in the hills"
-            },
-            Correct_Answer = "The Nudist colony",
-        },
-        {
-            Question = "What would I need to make a device that could hack a vault panel?",
-            Answers = {
-                "A trojan USB",
-                "A screwdriver set",
-                "Some copper wire",
-                "An old phone",
-                "Some gold"
-            },
-            Correct_Answer = "Some copper wire",
-        },
     },
 }
 
@@ -284,11 +223,6 @@ Config.Hacking = {
             coords = vec3(116.35, -747.4, 45.75),
             size = vec3(4.1, 1.2, 1.3),
             rotation = 294.5,
-        },
-        {
-            coords = vec3(1267.7, -1710.4, 54.5),
-            size = vec3(1.25, 1.0, 1.25),
-            rotation = 294.4,
         },
     },
 }
@@ -341,40 +275,6 @@ Config.AmbientPeds = {
             Scenario = 'WORLD_HUMAN_WELDING',
             IsPedArmed = false, -- Set to false if [PlayAnim] or [PlayScenario] = true
             WeaponIfArmed = nil, -- Leave as nil if [IsPedArmed = false] otherwise make sure the weapon HASH is used (https://gtahash.ru/weapons/?page=1)
-        },
-        {
-            PedModel = "s_m_m_chemsec_01",
-            SpawnLocation = vector4(888.95, -3194.64, -99.2, 165.48),
-            PlayAnim = false,
-            AnimationDict = "amb@world_human_welding@male@base",
-            AnimationClip = "base",
-            PlayScenario = true,
-            Scenario = 'WORLD_HUMAN_GUARD_PATROL',
-            IsPedArmed = false,
-            WeaponIfArmed = nil,
-        },
-        {
-            PedModel = "s_m_m_chemsec_01",
-            SpawnLocation = vector4(891.74, -3211.22, -99.2, 205.19),
-            PlayAnim = true,
-            AnimationDict = "mini@repair",
-            AnimationClip = "fixing_a_ped",
-            PlayScenario = false,
-            Scenario = 'WORLD_HUMAN_WELDING',
-            IsPedArmed = false,
-            WeaponIfArmed = 453432689,
-            
-        },
-        {
-            PedModel = "s_m_m_chemsec_01",
-            SpawnLocation = vector4(903.17, -3182.84, -98.05, 99.65),
-            PlayAnim = true,
-            AnimationDict = "anim@amb@business@bgen@bgen_no_work@",
-            AnimationClip = "stand_phone_phoneputdown_idle_nowork",
-            PlayScenario = false,
-            Scenario = 'WORLD_HUMAN_WELDING',
-            IsPedArmed = false,
-            WeaponIfArmed = 736523883,
         },
     },
 }

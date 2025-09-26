@@ -54,26 +54,28 @@ CreateThread(function()
     --Entering Market--
     -------------------
 
-    local entranceInfo = lib.callback.await('blackmarket:server:GetRandomEntranceLocation', false)
-
-    lib.requestModel(entranceInfo.pedModel, 60000)
-    local entrancePed = CreatePed(1, entranceInfo.pedModel, entranceInfo.location, false, true, false)
+    local entranceCoords = lib.callback.await('blackmarket:server:GetRandomEntranceLocation', false)
+    local pedInfo = Config.BlackMarketAccess.EntranceInfo.pedInfo
+    local pedModelKey = math.random(1, #pedInfo.pedModels)
+    local chosenPedModel = lib.requestModel(pedInfo.pedModels[pedModelKey], 60000)
+    
+    local entrancePed = CreatePed(1, chosenPedModel, entranceCoords, false, true, false)
     SetEntityInvincible(entrancePed, true)
     SetBlockingOfNonTemporaryEvents(entrancePed, true)
     FreezeEntityPosition(entrancePed, true)
     
-    if entranceInfo.animInfo.active then
-        lib.requestAnimDict(entranceInfo.animInfo.dict)
-        TaskPlayAnim(entrancePed, entranceInfo.animInfo.dict, entranceInfo.animInfo.clip, 4.0, 4.0, -1, 1, false, false, false, false)
-        RemoveAnimDict(entranceInfo.animInfo.dict)
+    if pedInfo.animInfo.active then
+        lib.requestAnimDict(pedInfo.animInfo.dict)
+        TaskPlayAnim(entrancePed, pedInfo.animInfo.dict, pedInfo.animInfo.clip, 4.0, 4.0, -1, 1, false, false, false, false)
+        RemoveAnimDict(pedInfo.animInfo.dict)
     end
 
-    if entranceInfo.propInfo.active then
-        local placement = entranceInfo.propInfo.placement
-        lib.RequestModel(entranceInfo.propInfo.propModel, 60000)
-        local propModel = CreateObject(entranceInfo.propInfo.propModel, entranceInfo.location.xyz, false, true, false)
-        AttachEntityToEntity(propModel, entrancePed, GetPedBoneIndex(entrancePed, entranceInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
-        SetModelAsNoLongerNeeded(entranceInfo.propInfo.propModel)
+    if pedInfo.propInfo.active then
+        local placement = pedInfo.propInfo.placement
+        lib.RequestModel(pedInfo.propInfo.propModel, 60000)
+        local propModel = CreateObject(pedInfo.propInfo.propModel, entranceCoords, false, true, false)
+        AttachEntityToEntity(propModel, entrancePed, GetPedBoneIndex(entrancePed, pedInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
+        SetModelAsNoLongerNeeded(pedInfo.propInfo.propModel)
     end
 
     exports.ox_target:addLocalEntity(entrancePed, {
@@ -85,7 +87,7 @@ CreateThread(function()
             distance = 2,
         },
     })
-    SetModelAsNoLongerNeeded(entranceInfo.pedModel)
+    SetModelAsNoLongerNeeded(chosenPedModel)
 
     ------------------
     --Exiting Market--
