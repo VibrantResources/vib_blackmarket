@@ -94,32 +94,33 @@ CreateThread(function()
     ------------------
 
     local exit = Config.BlackMarketAccess.ExitInfo
-    local pedCoords = exit.ExitPedLocation
+    local exitPedInfo = exit.pedInfo
+    for i=1, #exit.exitPedLocations do
+        local exitPedModel = lib.requestModel(exitPedInfo.exitPedModel, 60000)
+        local exitPed = CreatePed(1, exitPedModel, exit.exitPedLocations[i], false, true, true)
+        SetEntityInvincible(exitPed, true)
+        SetBlockingOfNonTemporaryEvents(exitPed, true)
+        FreezeEntityPosition(exitPed, true)
 
-    lib.requestModel(exit.ExitPedModel, 60000)
-    local exitPed = CreatePed(1, exit.ExitPedModel, exit.ExitPedLocation, false, true, true)
-    SetEntityInvincible(exitPed, true)
-    SetBlockingOfNonTemporaryEvents(exitPed, true)
-    FreezeEntityPosition(exitPed, true)
+        if exitPedInfo.animInfo.active then
+            lib.requestAnimDict(exitPedInfo.animInfo.dict)
+            TaskPlayAnim(exitPed, exitPedInfo.animInfo.dict, exitPedInfo.animInfo.clip, 1.0, 1.0, -1, 1, 1, false, false, false)
 
-    if Config.UseAnims then
-        lib.requestAnimDict(exit.ExitPedAnimationDict)
-        TaskPlayAnim(exitPed, exit.ExitPedAnimationDict, exit.ExitPedAnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
+            RemoveAnimDict(exitPedInfo.animInfo.dict)
+        end
 
-        RemoveAnimDict(exit.ExitPedAnimationDict)
+        exports.ox_target:addLocalEntity(exitPed, {
+            {
+                label = 'Speak to '..exitPedInfo.exitPedName,
+                event = 'blackmarket:ExitMenu',
+                args = exitPedInfo.exitPedName,
+                icon = 'fa-solid fa-box-archive',
+                iconColor = 'yellow',
+                distance = 2, 
+            },
+        })
+        SetModelAsNoLongerNeeded(exitPedModel)
     end
-
-    exports.ox_target:addLocalEntity(exitPed, {
-        {
-            label = 'Speak to '..exit.ExitPedName,
-            event = 'blackmarket:ExitMenu',
-            args = exit.ExitPedName,
-            icon = 'fa-solid fa-box-archive',
-            iconColor = 'yellow',
-            distance = 2, 
-        },
-    })
-    SetModelAsNoLongerNeeded(exit.ExitPedModel)
 
     ------------------
     --Weapon Repairs--

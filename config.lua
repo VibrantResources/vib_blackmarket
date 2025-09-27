@@ -36,12 +36,33 @@ Config.BlackMarketAccess = {
         },
     },
     ExitInfo = {
-        ExitPedModel = "a_m_m_acult_01",
-        ExitPedName = "Guard",
-        ExitPedLocation = vector4(895.4, -3242.6, -99.26, 81.78),
-        ExitPedAnimationDict = "amb@world_human_hang_out_street@female_arms_crossed@idle_a",
-        ExitPedAnimationClip = "idle_a",
-        ExitLocations = { -- One of the below locations will be chosen each time a player LEAVES the black market [Set 1 vector4() if you want a static location]
+        pedInfo = {
+            exitPedModel = "a_m_m_acult_01",
+            exitPedName = "Guard",
+            animInfo = {
+                active = true,
+                dict = "amb@world_human_aa_smoke@male@idle_a",
+                clip = "idle_c",
+            },
+            propInfo = {
+                active = true,
+                propModel = "prop_cs_ciggy_01",
+                bone = 28422,
+                placement = {
+                    x = 0.0,
+                    y = 0.0,
+                    z = 0.0,
+                    xRot = 0.0,
+                    yRot = 0.0,
+                    zRot = 0.0,
+                },
+            },
+        },
+        exitPedLocations = { -- A gurad ped will spawn in each location (Gives the appearance of each door/whatever being actually guarded)
+            vector4(895.4, -3242.6, -99.26, 81.78),
+            vector4(857.04, -3250.0, -99.34, 5.92),
+        },
+        exitLocations = { -- One of the below locations will be chosen each time a player LEAVES the black market [Set 1 vector4() if you want a static location]
             vector4(479.43, -2248.61, 5.91, 329.6),
             vector4(1119.57, -2147.11, 30.83, 354.01),
             vector4(935.48, -1517.98, 31.02, 352.9),
