@@ -109,6 +109,14 @@ CreateThread(function()
             RemoveAnimDict(exitPedInfo.animInfo.dict)
         end
 
+        if exitPedInfo.propInfo.active then
+            local placement = exitPedInfo.propInfo.placement
+            lib.RequestModel(exitPedInfo.propInfo.propModel, 60000)
+            local propModel = CreateObject(exitPedInfo.propInfo.propModel, exit.exitPedLocations[i], false, true, false)
+            AttachEntityToEntity(propModel, exitPed, GetPedBoneIndex(exitPed, exitPedInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
+            SetModelAsNoLongerNeeded(exitPedInfo.propInfo.propModel)
+        end
+
         exports.ox_target:addLocalEntity(exitPed, {
             {
                 label = 'Speak to '..exitPedInfo.exitPedName,
