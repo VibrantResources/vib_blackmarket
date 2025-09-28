@@ -8,7 +8,11 @@ RegisterNetEvent('blackmarket:RepairMenu', function(data)
     local statsDescription = nil
     local currentWeapon = exports.ox_inventory:getCurrentWeapon()
     if not currentWeapon then
-        QBCore.Functions.Notify("You don't have a weapon to show me", "error", 3500)
+        lib.notify({
+            title = 'Missing',
+            description = "You don't have a weapon for me to inspect",
+            type = 'error'
+        })
 
         return
     end
@@ -53,9 +57,9 @@ RegisterNetEvent('blackmarket:RepairMenu', function(data)
     }
 
     headerMenu[#headerMenu + 1] = {
-        title = "Attachments",
+        title = "Components",
         description = attachmentDescription or "View a list of possible attachments for your weapon",
-        event = 'blackmarket:client:GetWeaponComponents',
+        event = 'blackmarket:client:getcomponentinformation',
         icon = 'fa-solid fa-gun',
         iconColor = "red",
         disabled = currentWeapon == nil,
