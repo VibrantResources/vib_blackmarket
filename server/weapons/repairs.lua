@@ -1,9 +1,10 @@
 RegisterNetEvent('blackmarket:server:RepairWeapon', function(data, weaponData)
+    print(json.encode(data, {indent = true}))
     local player = QBCore.Functions.GetPlayer(source)
     
-    if exports.ox_inventory:RemoveItem(source, Config.DirtyMoneyItem, data.args.RepairCost) then
-
+    if exports.ox_inventory:RemoveItem(source, Config.DirtyMoneyItem, data.repairCost) then
         exports.ox_inventory:SetDurability(source, weaponData.slot, 100)
+
         lib.notify(source, {
             title = 'Attention',
             description = "Your weapon has been fully repaired!",

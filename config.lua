@@ -5,7 +5,7 @@ Config.UseAnims = true -- set to false if you want peds to be static with no ani
 Config.DirtyMoneyItem = "black_money" -- Currency item used to make purchases with market peds
 Config.CleanMoneyItem = "money"
 
-Config.BlackMarketAccess = {
+Config.BlackMarket = {
     EntranceInfo = {
         EntranceLandingLocation = vector4(892.62, -3245.87, -98.28, 73.49), -- Where the player lands after being teleported inside
         EntranceLocations = { -- Randomly selected location the entrance ped could spawn in per restart
@@ -24,14 +24,7 @@ Config.BlackMarketAccess = {
                 active = true,
                 propModel = "prop_cs_ciggy_01",
                 bone = 28422,
-                placement = {
-                    x = 0.0,
-                    y = 0.0,
-                    z = 0.0,
-                    xRot = 0.0,
-                    yRot = 0.0,
-                    zRot = 0.0,
-                },
+                placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
             },
         },
     },
@@ -48,14 +41,7 @@ Config.BlackMarketAccess = {
                 active = true,
                 propModel = "prop_cs_ciggy_01",
                 bone = 28422,
-                placement = {
-                    x = 0.0,
-                    y = 0.0,
-                    z = 0.0,
-                    xRot = 0.0,
-                    yRot = 0.0,
-                    zRot = 0.0,
-                },
+                placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
             },
         },
         exitPedLocations = { -- A gurad ped will spawn in each location (Gives the appearance of each door/whatever being actually guarded)
@@ -70,30 +56,38 @@ Config.BlackMarketAccess = {
             vector4(1516.95, 3793.44, 33.5, 134.38),
         },
     },
-    RepairsInfo = {
-        {
-            RepairsPedModel = "a_m_m_acult_01",
-            RepairsPedName = "Christian",
-            RepairsPedLocation = vector4(907.85, -3211.16, -99.23, 23.39),
-            repairModelLocation = vector3(907.65, -3210.50, -98.30),
-            SpawnedRepairModelRotation = vector3(-85.0, 0.0, 25.0),
-            RepairsPedAnimationDict = "missfbi5ig_15",
-            RepairsPedAnimationClip = "look_into_microscope_a_scientista",
-            RepairDuration = 5000, -- How long it takes to repair a weapon in ms
-            RepairCost = 175, -- Cost of repairs using [Config.DirtyMoneyItem]
-            requiredMoneyType = 'black_money', -- Dirty money item name
+    RepairsInfo = { 
+        groupCosts = { -- How much each weapon type costs to be repaired
+            {group = 'GROUP_PISTOL', repairCost = 2250,},
+            {group = 'GROUP_RIFLE', repairCost = 4250,},
+            {group = 'GROUP_SHOTGUN', repairCost = 3000,},
+            {group = 'GROUP_SMG', repairCost = 2750,},
+            {group = 'GROUP_SNIPER', repairCost = 5000,},
         },
-        {
-            RepairsPedModel = "s_f_y_cop_01",
-            RepairsPedName = "Armorer",
-            RepairsPedLocation = vector4(487.15, -997.0, 29.68, 267.62),
-            spawnedRepairModelLocation = vector3(487.95, -996.85, 30.52),
-            SpawnedRepairModelRotation = vector3(0.0, 90.0, 90.0),
-            RepairsPedAnimationDict = "missfbi5ig_15",
-            RepairsPedAnimationClip = "look_into_microscope_a_scientista",
-            RepairDuration = 7500, -- How long it takes to repair a weapon in ms
-            RepairCost = 35, -- Cost of repairs using [Config.DirtyMoneyItem]
-            requiredMoneyType = 'money', -- Clean money item name
+        repairLocations = {
+            {
+                repairsPedLocation = vector4(907.85, -3211.16, -99.23, 23.39),
+                repairModelLocation = vector3(907.65, -3210.50, -98.30),
+                spawnedRepairModelRotation = vector3(-85.0, 0.0, 25.0),
+                pedInfo = {
+                    pedName = "Christian",
+                    pedModel = "a_m_m_acult_01",
+                    animInfo = {
+                        active = true,
+                        dict = "amb@world_human_aa_smoke@male@idle_a",
+                        clip = "idle_c",
+                    },
+                    propInfo = {
+                        active = true,
+                        propModel = "prop_cs_ciggy_01",
+                        bone = 28422,
+                        placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
+                    },
+                },
+                repairDuration = 5000, -- How long it takes to repair a weapon in ms
+                repairCost = 175, -- Cost of repairs using [Config.DirtyMoneyItem]
+                requiredMoneyType = 'black_money', -- Dirty money item name
+            },
         },
     },
 }

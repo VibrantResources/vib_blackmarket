@@ -6,8 +6,8 @@ lib.callback.register('blackmarket:server:GetPlayerJob', function(source)
 end)
 
 lib.callback.register('blackmarket:server:GetRandomEntranceLocation', function(source)
-    local randomEntranceKey = math.random(1, #Config.BlackMarketAccess.EntranceInfo.EntranceLocations)
-    local chosenEntranceLocation = Config.BlackMarketAccess.EntranceInfo.EntranceLocations[randomEntranceKey]
+    local randomEntranceKey = math.random(1, #Config.BlackMarket.EntranceInfo.EntranceLocations)
+    local chosenEntranceLocation = Config.BlackMarket.EntranceInfo.EntranceLocations[randomEntranceKey]
     
     return chosenEntranceLocation
 end)

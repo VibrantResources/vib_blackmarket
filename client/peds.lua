@@ -55,7 +55,7 @@ CreateThread(function()
     -------------------
 
     local entranceCoords = lib.callback.await('blackmarket:server:GetRandomEntranceLocation', false)
-    local pedInfo = Config.BlackMarketAccess.EntranceInfo.pedInfo
+    local pedInfo = Config.BlackMarket.EntranceInfo.pedInfo
     local pedModelKey = math.random(1, #pedInfo.pedModels)
     local chosenPedModel = lib.requestModel(pedInfo.pedModels[pedModelKey], 60000)
     
@@ -93,7 +93,7 @@ CreateThread(function()
     --Exiting Market--
     ------------------
 
-    local exit = Config.BlackMarketAccess.ExitInfo
+    local exit = Config.BlackMarket.ExitInfo
     local exitPedInfo = exit.pedInfo
     for i=1, #exit.exitPedLocations do
         local exitPedModel = lib.requestModel(exitPedInfo.exitPedModel, 60000)
@@ -134,23 +134,23 @@ CreateThread(function()
     --Weapon Repairs--
     ------------------
 
-    for _, v in pairs(Config.BlackMarketAccess.RepairsInfo) do
-        lib.requestModel(v.RepairsPedModel, 60000)
-        local repairPed = CreatePed(1, v.RepairsPedModel, v.RepairsPedLocation, false, true, true)
+    for _, v in pairs(Config.BlackMarket.RepairsInfo.repairLocations) do
+        local repairPedModel = lib.requestModel(v.pedInfo.pedModel, 60000)
+        local repairPed = CreatePed(1, repairPedModel, v.repairsPedLocation, false, true, true)
         SetEntityInvincible(repairPed, true)
         SetBlockingOfNonTemporaryEvents(repairPed, true)
         FreezeEntityPosition(repairPed, true)
 
-        if Config.UseAnims then
-            lib.requestAnimDict(v.RepairsPedAnimationDict)
-            TaskPlayAnim(repairPed, v.RepairsPedAnimationDict, v.RepairsPedAnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
+        if v.pedInfo.animInfo.active then
+            lib.requestAnimDict(v.pedInfo.animInfo.dict)
+            TaskPlayAnim(repairPed, v.pedInfo.animInfo.dict, v.pedInfo.animInfo.clip, 1.0, 1.0, -1, 1, 1, false, false, false)
 
-            RemoveAnimDict(v.RepairsPedAnimationDict)
+            RemoveAnimDict(v.pedInfo.animInfo.dict)
         end
 
         exports.ox_target:addLocalEntity(repairPed, {
             {
-                label = 'Speak to '..v.RepairsPedName,
+                label = 'Speak to '..v.pedInfo.pedName,
                 event = 'blackmarket:RepairMenu',
                 args = v,
                 icon = 'fa-solid fa-box-archive',
@@ -158,6 +158,6 @@ CreateThread(function()
                 distance = 2, 
             },
         })
-        SetModelAsNoLongerNeeded(v.RepairsPedModel)
+        SetModelAsNoLongerNeeded(repairPedModel)
     end
 end)

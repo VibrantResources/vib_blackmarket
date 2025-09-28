@@ -55,7 +55,7 @@ end
 
 function TeleportPlayer(headbagObject)
     local player = cache.ped
-    local coords = Config.BlackMarketAccess.EntranceInfo.EntranceLandingLocation
+    local coords = Config.BlackMarket.EntranceInfo.EntranceLandingLocation
 
     DoScreenFadeOut(1000)
     while not IsScreenFadedOut() do
@@ -83,7 +83,7 @@ end
 
 function LeavingMarket()
     local player = cache.ped
-    local Exit = Config.BlackMarketAccess.ExitInfo
+    local Exit = Config.BlackMarket.ExitInfo
     local randomLocation = math.random(1, #Exit.ExitLocations)
     local dropoffLocation = Exit.ExitLocations[randomLocation]
 
