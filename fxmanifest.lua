@@ -10,21 +10,15 @@ description 'A blackmarket resource providing buying/selling shops, weapon knowl
 
 client_scripts {
 	'client/*.lua',
-	'client/laundering/*.lua',
-	'client/experts/*.lua',
-	'client/weapons/*.lua',
+	'client/**/*.lua',
 	'menus/*.lua',
-	'menus/laundering/*.lua',
-	'meus/experts/*.lua',
-	'menus/weapons/*.lua',
+	'menus/**/*.lua',
 	'ambient_peds/*.lua',
 }
 
 server_scripts  {
 	'server/*.lua',
-	'server/laundering/*.lua',
-	'server/experts/*.lua',
-	'server/weapons/*.lua',
+	'server/**/*.lua',
 }
 
 shared_scripts {

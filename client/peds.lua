@@ -5,7 +5,7 @@ CreateThread(function()
 
     for _, v in pairs(Config.Shops) do
         lib.requestModel(v.Model, 60000)
-        local shopPed = CreatePed(1, v.Model, v.Location, false, true, false)
+        local shopPed = CreatePed(1, v.Model, v.Location, v.Location.w, false, true)
 
         SetEntityInvincible(shopPed, true)
         SetBlockingOfNonTemporaryEvents(shopPed, true)
@@ -59,7 +59,7 @@ CreateThread(function()
     local pedModelKey = math.random(1, #pedInfo.pedModels)
     local chosenPedModel = lib.requestModel(pedInfo.pedModels[pedModelKey], 60000)
     
-    local entrancePed = CreatePed(1, chosenPedModel, entranceCoords, false, true, false)
+    local entrancePed = CreatePed(1, chosenPedModel, entranceCoords, entranceCoords.w, false, true)
     SetEntityInvincible(entrancePed, true)
     SetBlockingOfNonTemporaryEvents(entrancePed, true)
     FreezeEntityPosition(entrancePed, true)
@@ -97,7 +97,7 @@ CreateThread(function()
     local exitPedInfo = exit.pedInfo
     for i=1, #exit.exitPedLocations do
         local exitPedModel = lib.requestModel(exitPedInfo.exitPedModel, 60000)
-        local exitPed = CreatePed(1, exitPedModel, exit.exitPedLocations[i], false, true, true)
+        local exitPed = CreatePed(1, exitPedModel, exit.exitPedLocations[i], exit.exitPedLocations[i].w, false, true)
         SetEntityInvincible(exitPed, true)
         SetBlockingOfNonTemporaryEvents(exitPed, true)
         FreezeEntityPosition(exitPed, true)
@@ -136,7 +136,7 @@ CreateThread(function()
 
     for _, v in pairs(Config.BlackMarket.RepairsInfo.repairLocations) do
         local repairPedModel = lib.requestModel(v.pedInfo.pedModel, 60000)
-        local repairPed = CreatePed(1, repairPedModel, v.repairsPedLocation, false, true, true)
+        local repairPed = CreatePed(1, repairPedModel, v.repairsPedLocation, v.repairsPedLocation.w, false, true)
         SetEntityInvincible(repairPed, true)
         SetBlockingOfNonTemporaryEvents(repairPed, true)
         FreezeEntityPosition(repairPed, true)
