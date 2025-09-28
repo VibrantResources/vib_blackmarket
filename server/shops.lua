@@ -25,13 +25,13 @@ function getItemPrice(itemName, payload)
     local itemInfo = nil
 
     for _, v in pairs(Config.Shops) do
-        if v.Name == payload.toInventory then
+        if v.pedInfo.pedName == payload.toInventory then
             
             store = v
         end
     end
 
-    for _, v in pairs(store.SellableItems) do
+    for _, v in pairs(store.sellableItems) do
         if v.name == itemName then
             itemInfo = v
         end
@@ -52,7 +52,7 @@ end
 
 function GetStoreName(storeName)
     for k, v in pairs(Config.Shops) do
-        if v.Name == storeName then
+        if v.pedInfo.pedName == storeName then
             
             return storeName
         end

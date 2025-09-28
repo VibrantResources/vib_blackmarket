@@ -1,7 +1,6 @@
 Config = Config or {}
 
 Config.Debug = false
-Config.UseAnims = true -- set to false if you want peds to be static with no animations
 Config.DirtyMoneyItem = "black_money" -- Currency item used to make purchases with market peds
 Config.CleanMoneyItem = "money"
 
@@ -142,69 +141,50 @@ Config.Experts = {
 
 Config.Shops = {
     {
-        Name = "Supplies", -- Used for label when targeting ped
-        Type = "buying", -- buying = player buys items here / selling = player sells items here
-        Model = "s_m_m_ciasec_01", -- Ped model
-        Location = vector4(899.86, -3206.64, -98.19, 114.26), -- Ped location
-        AnimationDict = "amb@prop_human_bum_shopping_cart@male@idle_a", -- Dict for animation
-        AnimationClip = "idle_c", -- Animation ped plays
-        ItemsToBuy = { -- Item / Item Price / Stock amount per restart
+        type = "buying", -- buying = player buys items here / selling = player sells items here
+        pedInfo = {
+            pedName = "Shane",
+            pedLocation = vector4(908.6, -3207.37, -98.19, 212.49), -- Ped location
+            pedModel = "a_m_m_acult_01",
+            animInfo = {
+                active = true,
+                dict = "anim@heists@prison_heiststation@cop_reactions",
+                clip = "cop_b_idle",
+            },
+            propInfo = {
+                active = false,
+                propModel = "prop_cs_ciggy_01",
+                bone = 28422,
+                placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
+            },
+        },
+        itemsToBuy = { -- Item / Item Price / Stock amount per restart
             {name = "lockpick", price = 65, count = 50, currency = "black_money"},
             {name = "screwdriverset", price = 30, count = 15, currency = "black_money"},
             {name = "advancedlockpick", price = 115, count = 25, currency = "black_money"},
             {name = "diamond_drill", price = 12500, count = 3, currency = "black_money"},
         },
     },
-    {
-        Name = "Ammo",
-        Type = "buying",
-        Model = "s_m_m_fibsec_01",
-        Location = vector4(904.74, -3230.82, -99.27, 345.69),
-        AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
-        AnimationClip = "idle_c",
-        ItemsToBuy = {
-            {name = "ammo-9", price = 1, count = 250, currency = "black_money"},
-            {name = "ammo-rifle", price = 4, count = 150, currency = "black_money"},
-            {name = "ammo-rifle2", price = 5, count = 150, currency = "black_money"},
-            {name = "ammo-45", price = 2, count = 120, currency = "black_money"},
-            {name = "ammo-shotgun", price = 3, count = 50, currency = "black_money"},
-        },
-    },
-    {
-        Name = "Attachments",
-        Type = "buying",
-        Model = "s_m_m_highsec_01",
-        Location = vector4(908.93, -3207.19, -98.19, 115.63),
-        AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
-        AnimationClip = "idle_c",
-        ItemsToBuy = {
-            {name = "at_flashlight", price = 10, count = 10, currency = "black_money"},
-            {name = "at_suppressor_light", price = 10, count = 10, currency = "black_money"},
-            {name = "at_suppressor_heavy", price = 10, count = 10, currency = "black_money"},
-            {name = "at_grip", price = 10, count = 10, currency = "black_money"},
-            {name = "at_barrel", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_extended_pistol", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_extended_smg", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_extended_shotgun", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_extended_rifle", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_drum_smg", price = 10, count = 10, currency = "black_money"},
-            {name = "at_clip_drum_rifle", price = 10, count = 10, currency = "black_money"},
-            {name = "at_scope_macro", price = 10, count = 10, currency = "black_money"},
-            {name = "at_scope_small", price = 10, count = 10, currency = "black_money"},
-            {name = "at_scope_medium", price = 10, count = 10, currency = "black_money"},
-            {name = "at_scope_large", price = 10, count = 10, currency = "black_money"},
-            {name = "at_scope_holo", price = 10, count = 10, currency = "black_money"},
-        },
-    },
 
     {
-        Name = "Ammo",
-        Type = "selling",
-        Model = "s_m_m_fibsec_01",
-        Location = vector4(908.41, -3226.85, -99.29, 69.18),
-        AnimationDict = "amb@world_human_drinking@coffee@male@idle_a",
-        AnimationClip = "idle_c",
-        SellableItems = {
+        type = "selling",
+        pedInfo = {
+            pedName = "Shaun",
+            pedLocation = vector4(892.05, -3227.79, -99.24, 327.8), -- Ped location
+            pedModel = "a_m_m_acult_01",
+            animInfo = {
+                active = false,
+                dict = "anim@heists@prison_heiststation@cop_reactions",
+                clip = "cop_b_idle",
+            },
+            propInfo = {
+                active = false,
+                propModel = "prop_cs_ciggy_01",
+                bone = 28422,
+                placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
+            },
+        },
+        sellableItems = {
             {name = "ammo-9", value = math.random(1, 2)},
             {name = "ammo-rifle", value = math.random(1, 2)},
             {name = "ammo-rifle2", value = math.random(1, 2)},

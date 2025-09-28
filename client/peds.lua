@@ -4,50 +4,58 @@ CreateThread(function()
     ---------
 
     for _, v in pairs(Config.Shops) do
-        lib.requestModel(v.Model, 60000)
-        local shopPed = CreatePed(1, v.Model, v.Location, v.Location.w, false, true)
+        local pedInfo = v.pedInfo
+        local shopPedModel = lib.requestModel(pedInfo.pedModel, 60000)
+        local shopPed = CreatePed(1, shopPedModel, pedInfo.pedLocation, pedInfo.pedLocation.w, false, true)
 
         SetEntityInvincible(shopPed, true)
         SetBlockingOfNonTemporaryEvents(shopPed, true)
         FreezeEntityPosition(shopPed, true)
 
-        if Config.UseAnims then
-            lib.requestAnimDict(v.AnimationDict)
-            TaskPlayAnim(shopPed, v.AnimationDict, v.AnimationClip, 1.0, 1.0, -1, 1, 1, false, false, false)
-            
-            RemoveAnimDict(v.AnimationDict)
+        if pedInfo.animInfo.active then
+            lib.requestAnimDict(pedInfo.animInfo.dict)
+            TaskPlayAnim(shopPed, pedInfo.animInfo.dict, pedInfo.animInfo.clip, 1.0, 1.0, -1, 1, 1, false, false, false)
+
+            RemoveAnimDict(pedInfo.animInfo.dict)
         end
 
-        if v.Type == "buying" then
+        if pedInfo.propInfo.active then
+            local placement = pedInfo.propInfo.placement
+            lib.RequestModel(pedInfo.propInfo.propModel, 60000)
+            local propModel = CreateObject(pedInfo.propInfo.propModel, exit.exitPedLocations[i], false, true, false)
+            AttachEntityToEntity(propModel, shopPed, GetPedBoneIndex(shopPed, pedInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
+            SetModelAsNoLongerNeeded(pedInfo.propInfo.propModel)
+        end
+
+        if v.type == "buying" then
             exports.ox_target:addLocalEntity(shopPed,  {
                 {
-                    label = 'Trade '..v.Name,
+                    label = 'Trade '..pedInfo.pedName,
                     icon = 'fa-solid fa-cart-shopping',
-                    name = k,
                     onSelect = function()
                         Wait(100)
                         PlayPedAmbientSpeechNative(shopPed, 'GENERIC_HI', 'Speech_Params_Force')
                         exports.ox_inventory:openInventory('shop', {
-                            type = v.Name
+                            type = pedInfo.pedName
                         })
                     end,
                 }
             })
-        elseif v.Type == "selling" then
+        elseif v.type == "selling" then
             exports.ox_target:addLocalEntity(shopPed,  {
                 {
-                    label = "Sell "..v.Name,
+                    label = "Sell "..pedInfo.pedName,
                     icon = 'fa-solid fa-sack-dollar',
                     onSelect = function()
                         Wait(100)
                         PlayPedAmbientSpeechNative(shopPed, 'GENERIC_HI', 'Speech_Params_Force')
-                        exports.ox_inventory:openInventory('stash', v.Name)
+                        exports.ox_inventory:openInventory('stash', pedInfo.pedName)
                     end,
                 }
             })
         end
 
-        SetModelAsNoLongerNeeded(v.Model)
+        SetModelAsNoLongerNeeded(shopPedModel)
     end
 
     -------------------
