@@ -74,11 +74,11 @@ Config.BlackMarket = {
                     pedModel = "a_m_m_acult_01",
                     animInfo = {
                         active = true,
-                        dict = "amb@world_human_aa_smoke@male@idle_a",
-                        clip = "idle_c",
+                        dict = "mini@repair",
+                        clip = "fixing_a_player",
                     },
                     propInfo = {
-                        active = true,
+                        active = false,
                         propModel = "prop_cs_ciggy_01",
                         bone = 28422,
                         placement = {x = 0.0, y = 0.0, z = 0.0, xRot = 0.0, yRot = 0.0, zRot = 0.0,},
