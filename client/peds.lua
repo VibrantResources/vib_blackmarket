@@ -30,7 +30,7 @@ CreateThread(function()
         if v.type == "buying" then
             exports.ox_target:addLocalEntity(shopPed,  {
                 {
-                    label = 'Trade '..pedInfo.pedName,
+                    label = 'Trade with '..pedInfo.pedName,
                     icon = 'fa-solid fa-cart-shopping',
                     onSelect = function()
                         Wait(100)
@@ -44,7 +44,7 @@ CreateThread(function()
         elseif v.type == "selling" then
             exports.ox_target:addLocalEntity(shopPed,  {
                 {
-                    label = "Sell "..pedInfo.pedName,
+                    label = "Sell to "..pedInfo.pedName,
                     icon = 'fa-solid fa-sack-dollar',
                     onSelect = function()
                         Wait(100)

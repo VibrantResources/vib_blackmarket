@@ -24,7 +24,7 @@ CreateThread(function()
                 inventory = v.itemsToBuy,
             })
         elseif v.type == "selling" then
-            exports.ox_inventory:RegisterStash(v.pedInfo.pedName, "Sell "..v.pedInfo.pedName, 10, 50000)
+            exports.ox_inventory:RegisterStash(v.pedInfo.pedName, "Sell to "..v.pedInfo.pedName, 10, 50000)
         end
     end
 end)
