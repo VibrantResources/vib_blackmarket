@@ -14,6 +14,8 @@ function SpawnKidnapPed()
 
     local kidnapModel = lib.requestModel("a_m_m_acult_01", 60000)
     local kidnapPed = CreatePed(1, kidnapModel, playerCoords.x-1.0, playerCoords.y-1.0, playerCoords.z, false, true, true)
+    SetEntityInvincible(kidnapPed, true)
+    SetBlockingOfNonTemporaryEvents(kidnapPed, true)
     SetModelAsNoLongerNeeded(kidnapModel)
 
     local kidnapPedCoords = GetEntityCoords(kidnapPed)
@@ -33,9 +35,9 @@ function SpawnKidnapPed()
 
     Wait(2000)
 
-    SetPedToRagdollWithFall(player, 7500, 9000, 1, GetEntityForwardVector(player), 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    SetPedToRagdollWithFall(player, 4000, 5000, 1, GetEntityForwardVector(player), 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
-    Wait(1500)
+    Wait(750)
 
     local headBagModel = lib.requestModel('prop_money_bag_01', 60000)
     local headbagObject = CreateObject(headBagModel, 0, 0, 0, true, true, true)
@@ -43,11 +45,14 @@ function SpawnKidnapPed()
     SetEntityCompletelyDisableCollision(headbagObject, false, true)
     SetModelAsNoLongerNeeded(headBagModel)
 
+    Wait(750)
+
+    SetNuiFocus(false, false) -- don't steal mouse/keyboard, just show UI
     SendNUIMessage({
         type = "openGeneral"
     })
 
-    Wait(1500)
+    Wait(750)
 
     SetEntityAsNoLongerNeeded(kidnapPed)
     TeleportPlayer(headbagObject)
@@ -57,22 +62,14 @@ function TeleportPlayer(headbagObject)
     local player = cache.ped
     local coords = Config.BlackMarket.EntranceInfo.EntranceLandingLocation
 
-    DoScreenFadeOut(1000)
-    while not IsScreenFadedOut() do
-        Wait(10)
-    end
-
     SetEntityCoords(player, coords.x, coords.y, coords.z, false, false, false, false)
     SetEntityHeading(player, coords.w)
 
     Wait(100)
 
-    DoScreenFadeIn(2000)
-    while not IsScreenFadedIn() do
-        Wait(10)
+    if DoesEntityExist(headbagObject) then
+        DeleteEntity(headbagObject)
     end
-
-    DeleteEntity(headbagObject)
     FreezeEntityPosition(player, false)
     ClearPedTasks(player)
 

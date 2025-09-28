@@ -46,12 +46,12 @@ RegisterNetEvent("blackmarket:RiddleInput", function()
     end
 
     if formatAnswer(selectedAnswer) == formatAnswer(riddle.Correct_Answer) then
-        SpawnKidnapPed()
         lib.notify({
             title = 'Good job',
             description = 'You got the answer right!',
             type = 'success',
         })
+        SpawnKidnapPed()
     else
         lib.notify({
             title = 'Incorrect',
