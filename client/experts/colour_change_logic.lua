@@ -14,7 +14,10 @@ end
 
 -- Smooth fade with smoke
 function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
-    if not DoesEntityExist(vehicle) then return false end
+    if not DoesEntityExist(vehicle) then
+        return false
+    end
+
     duration = tonumber(duration) or 2000
 
     -- Start RGB
@@ -38,11 +41,11 @@ function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
         vehicle,
         0.0, 0.0, 0.0, -- offset
         0.0, 0.0, 0.0, -- rotation
-        0.5, -- scale
+        0.8, -- scale
         false, false, false
     )
 
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             local now = GetGameTimer()
             local elapsed = now - startTime
@@ -69,7 +72,7 @@ function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
                 break
             end
 
-            Citizen.Wait(40)
+            Wait(20)
         end
     end)
 
