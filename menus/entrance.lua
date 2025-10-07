@@ -23,14 +23,6 @@ RegisterNetEvent('blackmarket:EntranceMenu', function(data)
         iconColor = "yellow",
     }
 
-    headerMenu[#headerMenu + 1] = {
-        title = "Welcome",
-        description = "Provide entrance code",
-        event = "blackmarket:CodeInput",
-        icon = 'fa-solid fa-hashtag',
-        iconColor = "green",
-    }
-
     lib.registerContext({
         id = 'entrance_menu',
         title = "Market Entrance",

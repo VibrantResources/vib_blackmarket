@@ -12,12 +12,6 @@ lib.callback.register('blackmarket:server:GetRandomEntranceLocation', function(s
     return chosenEntranceLocation
 end)
 
-lib.callback.register('blackmarket:server:GenerateNumberCode', function(source)
-    local correctCode = Config.Hacking.RandomNumberCode
-    
-    return correctCode
-end)
-
 lib.callback.register('blackmarket:server:AttachCar', function(source, vehicleToAttach)
     local player = QBCore.Functions.GetPlayer(source)
 
