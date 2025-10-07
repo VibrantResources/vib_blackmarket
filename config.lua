@@ -194,64 +194,17 @@ Config.Shops = {
     },
 }
 
-Config.EntranceTypes = {
-    Riddles = {
-        {
-            Question = "What is the guard rotation at BolingBroke?",
-            Answers = {
-                "4-4-5-3",
-                "3-4-5-2",
-                "4-4-4-4",
-                "4-6-5-3",
-            },
-            Correct_Answer = "4-4-5-3", -- Must match one of the [Answers] above
-        },
-    },
-}
-
-Config.Hacking = {
-    RandomNumberCode = math.random(11111, 99999),
-    RequiredHackingItem = "laptop",
-    HackingGlobalCooldownInMinutes = 25,
-    HackingZones = {
-        {
-            coords = vec3(116.35, -747.4, 45.75),
-            size = vec3(4.1, 1.2, 1.3),
-            rotation = 294.5,
-        },
-    },
-}
-
------------------
---Money Washing--
------------------
-
-Config.Laundering = {
-    {
-        launderName = "Grapeseed",
-        pedModel = "s_m_m_linecook",
-        location = vector4(2439.8, 4977.93, 45.81, 47.18),
-        launderTimeInMinutes = 25,
-        percentageTakenFromPlayer = 0.285,
-        animInfo = {
-            active = true, -- Set to false if using scenario below
-            dict = "amb@world_human_aa_smoke@male@idle_a",
-            clip = "idle_c",
-        },
-        propInfo = {
-            active = true, -- Set to false to have no props
-            propModel = "prop_cs_ciggy_01",
-            bone = 28422,
-            placement = {
-                x = 0.0,
-                y = 0.0,
-                z = 0.0,
-                xRot = 0.0,
-                yRot = 0.0,
-                zRot = 0.0,
-            },
-        },
-    },
+------------------
+--Money Counting--
+------------------
+-- Players add "Config.DirtyMoneyItem" to the machines inventory and at the below intervals
+-- It removes the chosen values and replcaes with the chosen clean values in "Config.CleanMoneyItem"
+Config.MoneyMachine = {
+    item = "money_machine",
+    objectModel = "bkr_prop_money_counter",
+    waitTimeBetweenRemovalInSeconds = {min = 3, max = 8},
+    amountToRemove = {min = 2, max = 4},
+    amountToGive = {min = 2, max = 2},
 }
 
 ----------------

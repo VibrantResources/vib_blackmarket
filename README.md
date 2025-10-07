@@ -13,17 +13,13 @@
 
 # What does this resource provide?
 
-- Peds where players can buy configurable stock from using [Config.MoneyItem]
-- Ped where players can sell configurable items, receiving [Config.MoneyItem]
-- Configurable & unique money washing locations across the city, with the ability to be robbed and interrogated (Converts[Config.MoneyItem] to ["money"])
+- Peds where players can buy & sell items
 - Ped where players can interact with and see what attachments can be applied to their currently equipped weapon
-- Ped where players can fully repair their currently equipped weapon
+- Ped where players can fully repair their currently equipped weapon using repair values based on the weapon type
+- Placable items where players can put [Config.DirtyMoneyItem] in the stash of and see a return of [Config.CleanMoneyItem] over time
 
 # How do players access the blackmarket?
 
-One of two ways:
-
-- Players can complete a hack, providing them a code, that is generated when the resource first starts, that they can give to the entrance ped
 - Players can  correctly answer a randomly generated riddle, which can be found and configured in [Config.EntranceTypes.Riddles]
 
 # How do players exit the market?
@@ -33,7 +29,7 @@ One of two ways:
 
 # How do I move the locations of stuff?
 
-All locations are in the [config.lua]. So moving everything is kept just about all in one place!
+All locations are in the [config.lua] so moving everything is kept just about all in one place!
 
 # Why can't my players take a car inside the market?
 
@@ -43,6 +39,9 @@ Not all servers will have their markets in vehicle friendly locations, we decide
 
 - We prefer the use of individual items for money!
 
-# If there's anything you'd like to see added to this resource in the future, head over to our Discord and throw a suggestion our way!
+# How do players wash their money?
 
-# Special thanks to Baubles for all her contributions
+- Well, firstly you'll need to create an item and trigger this even in the item [moneywash:client:PlaceDownObject], once the item is placed
+- all the player needs to do is add any [Config.DirtyMoneyItem] into the stash of the item and it'll  be converted automatically
+
+# If there's anything you'd like to see added to this resource in the future, head over to our Discord and throw a suggestion our way!
