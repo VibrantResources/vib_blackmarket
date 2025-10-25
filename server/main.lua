@@ -6,6 +6,7 @@ math.randomseed(os.time())
 --Variables--
 -------------
 
+entranceLocation = nil
 isCarAttached = false
 
 ----------
@@ -15,6 +16,13 @@ isCarAttached = false
 -----------
 --Threads--
 -----------
+
+CreateThread(function()
+    local randomEntranceKey = math.random(1, #Config.BlackMarket.EntranceInfo.EntranceLocations)
+    local chosenEntranceLocation = Config.BlackMarket.EntranceInfo.EntranceLocations[randomEntranceKey]
+
+    entranceLocation = chosenEntranceLocation
+end)
 
 CreateThread(function()
     for _, v in pairs(Config.Shops) do

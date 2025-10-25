@@ -1,6 +1,6 @@
 RegisterNetEvent("blackmarket:RiddleInput", function()
-    local randomKey = math.random(1, #Config.EntranceTypes.Riddles)
-    local riddle = Config.EntranceTypes.Riddles[randomKey]
+    local randomKey = math.random(1, #Config.EntranceQuestions)
+    local riddle = Config.EntranceQuestions[randomKey]
     local options = {}
 
     math.randomseed(GetGameTimer())

@@ -1,9 +1,50 @@
 CreateThread(function()
+
+    -------------------
+    --Entering Market--
+    -------------------
+
+    local entranceCoords = lib.callback.await('blackmarket:server:GetRandomEntranceLocation', false)
+    local pedInfo = Config.BlackMarket.EntranceInfo.pedInfo
+    local pedModelKey = math.random(1, #pedInfo.pedModels)
+    local entrancePedModel = lib.requestModel(pedInfo.pedModels[pedModelKey], 60000)
+    
+    local entrancePed = CreatePed(1, entrancePedModel, entranceCoords, entranceCoords.w, false, true)
+    SetEntityInvincible(entrancePed, true)
+    SetBlockingOfNonTemporaryEvents(entrancePed, true)
+    FreezeEntityPosition(entrancePed, true)
+    
+    if pedInfo.animInfo.active then
+        lib.requestAnimDict(pedInfo.animInfo.dict)
+        TaskPlayAnim(entrancePed, pedInfo.animInfo.dict, pedInfo.animInfo.clip, 4.0, 4.0, -1, 1, false, false, false, false)
+        RemoveAnimDict(pedInfo.animInfo.dict)
+    end
+
+    if pedInfo.propInfo.active then
+        local placement = pedInfo.propInfo.placement
+        lib.RequestModel(pedInfo.propInfo.propModel, 60000)
+        local propModel = CreateObject(pedInfo.propInfo.propModel, entranceCoords, false, true, false)
+        AttachEntityToEntity(propModel, entrancePed, GetPedBoneIndex(entrancePed, pedInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
+        SetModelAsNoLongerNeeded(pedInfo.propInfo.propModel)
+    end
+
+    exports.ox_target:addLocalEntity(entrancePed, {
+        {
+            label = 'Speak',
+            event = 'blackmarket:EntranceMenu',
+            icon = 'fa-solid fa-comment-dots',
+            iconColor = 'yellow',
+            distance = 2,
+        },
+    })
+    SetModelAsNoLongerNeeded(entrancePedModel)
+
     ----------
     --Shops--
     ---------
 
-    for _, v in pairs(Config.Shops) do
+    for k, v in pairs(Config.Shops) do
+        print("Shop number: ", k)
         local pedInfo = v.pedInfo
         local shopPedModel = lib.requestModel(pedInfo.pedModel, 60000)
         local shopPed = CreatePed(1, shopPedModel, pedInfo.pedLocation, pedInfo.pedLocation.w, false, true)
@@ -57,45 +98,6 @@ CreateThread(function()
 
         SetModelAsNoLongerNeeded(shopPedModel)
     end
-
-    -------------------
-    --Entering Market--
-    -------------------
-
-    local entranceCoords = lib.callback.await('blackmarket:server:GetRandomEntranceLocation', false)
-    local pedInfo = Config.BlackMarket.EntranceInfo.pedInfo
-    local pedModelKey = math.random(1, #pedInfo.pedModels)
-    local chosenPedModel = lib.requestModel(pedInfo.pedModels[pedModelKey], 60000)
-    
-    local entrancePed = CreatePed(1, chosenPedModel, entranceCoords, entranceCoords.w, false, true)
-    SetEntityInvincible(entrancePed, true)
-    SetBlockingOfNonTemporaryEvents(entrancePed, true)
-    FreezeEntityPosition(entrancePed, true)
-    
-    if pedInfo.animInfo.active then
-        lib.requestAnimDict(pedInfo.animInfo.dict)
-        TaskPlayAnim(entrancePed, pedInfo.animInfo.dict, pedInfo.animInfo.clip, 4.0, 4.0, -1, 1, false, false, false, false)
-        RemoveAnimDict(pedInfo.animInfo.dict)
-    end
-
-    if pedInfo.propInfo.active then
-        local placement = pedInfo.propInfo.placement
-        lib.RequestModel(pedInfo.propInfo.propModel, 60000)
-        local propModel = CreateObject(pedInfo.propInfo.propModel, entranceCoords, false, true, false)
-        AttachEntityToEntity(propModel, entrancePed, GetPedBoneIndex(entrancePed, pedInfo.propInfo.bone), placement.x, placement.y, placement.z, placement.xRot, placement.yRot, placement.zRot, true, true, false, true, 1, true)
-        SetModelAsNoLongerNeeded(pedInfo.propInfo.propModel)
-    end
-
-    exports.ox_target:addLocalEntity(entrancePed, {
-        {
-            label = 'Speak',
-            event = 'blackmarket:EntranceMenu',
-            icon = 'fa-solid fa-comment-dots',
-            iconColor = 'yellow',
-            distance = 2,
-        },
-    })
-    SetModelAsNoLongerNeeded(chosenPedModel)
 
     ------------------
     --Exiting Market--

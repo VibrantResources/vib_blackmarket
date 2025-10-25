@@ -9,7 +9,6 @@ repository 'https://github.com/VibrantResources/vib_blackmarket'
 description 'A blackmarket resource providing buying/selling shops, weapon knowledge and more'
 
 client_scripts {
-	'client/*.lua',
 	'client/**/*.lua',
 	'menus/*.lua',
 	'menus/**/*.lua',

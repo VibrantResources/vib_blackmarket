@@ -91,6 +91,19 @@ Config.BlackMarket = {
     },
 }
 
+Config.EntranceQuestions = {
+    {
+        Question = "What is the guard rotation at BolingBroke?",
+        Answers = {
+            "4-4-5-3",
+            "3-4-5-2",
+            "4-4-4-4",
+            "4-6-5-3",
+        },
+        Correct_Answer = "4-4-5-3", -- Must match one of the [Answers] above
+    },
+}
+
 -----------
 --Experts--
 -----------

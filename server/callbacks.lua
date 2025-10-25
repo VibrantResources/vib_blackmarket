@@ -1,15 +1,22 @@
 lib.callback.register('blackmarket:server:GetPlayerJob', function(source)
     local player = QBCore.Functions.GetPlayer(source)
+    if not player then
+        return
+    end
+    
     local playerJob = player.PlayerData.job.name
 
     return playerJob
 end)
 
 lib.callback.register('blackmarket:server:GetRandomEntranceLocation', function(source)
-    local randomEntranceKey = math.random(1, #Config.BlackMarket.EntranceInfo.EntranceLocations)
-    local chosenEntranceLocation = Config.BlackMarket.EntranceInfo.EntranceLocations[randomEntranceKey]
-    
-    return chosenEntranceLocation
+    local player = QBCore.Functions.GetPlayer(source)
+
+    if not player then
+        return
+    end
+
+    return entranceLocation
 end)
 
 lib.callback.register('blackmarket:server:AttachCar', function(source, vehicleToAttach)
