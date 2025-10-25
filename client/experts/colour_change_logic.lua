@@ -2,8 +2,7 @@ local function lerp(a, b, t)
     return a + (b - a) * t
 end
 
--- Utility: load particle dictionary
-local function loadPtfx(dict)
+local function loadPtfx(dict) -- Didn't seem to want to work using ox_lib
     if not HasNamedPtfxAssetLoaded(dict) then
         RequestNamedPtfxAsset(dict)
         while not HasNamedPtfxAssetLoaded(dict) do
@@ -12,7 +11,6 @@ local function loadPtfx(dict)
     end
 end
 
--- Smooth fade with smoke
 function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
     if not DoesEntityExist(vehicle) then
         return false
@@ -30,7 +28,6 @@ function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
 
     local startTime = GetGameTimer()
 
-    -- Load particle fx dictionary
     local dict = "core"
     loadPtfx(dict)
 
@@ -66,8 +63,7 @@ function SmoothChangeVehicleColorWithSmoke(vehicle, duration)
             -- Update smoke colour (PTFX supports RGB)
             SetParticleFxLoopedColour(fxHandle, rP/255.0, gP/255.0, bP/255.0)
 
-            if t >= 1.0 then
-                -- Done fading
+            if t >= 1.0 then -- This is when we're done
                 StopParticleFxLooped(fxHandle, 0)
                 break
             end
