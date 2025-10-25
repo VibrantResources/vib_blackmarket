@@ -43,5 +43,6 @@ Not all servers will have their markets in vehicle friendly locations, we decide
 
 - Well, firstly you'll need to create an item and trigger this even in the item [moneywash:client:PlaceDownObject], once the item is placed
 - all the player needs to do is add any [Config.DirtyMoneyItem] into the stash of the item and it'll  be converted automatically
+- These items are NOT persistant as it'll help encourage players to manage what they're doing
 
 # If there's anything you'd like to see added to this resource in the future, head over to our Discord and throw a suggestion our way!
