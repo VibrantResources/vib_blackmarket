@@ -20,7 +20,7 @@
 
 # How do players access the blackmarket?
 
-- Players can  correctly answer a randomly generated riddle, which can be found and configured in [Config.EntranceTypes.Riddles]
+- Players can  correctly answer a randomly generated riddle, which can be found and configured in [Config.EntranceQuestions]
 
 # How do players exit the market?
 
