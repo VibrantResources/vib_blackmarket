@@ -108,6 +108,7 @@ Config.EntranceQuestions = {
 --Experts--
 -----------
 
+-- THIS IS STILL A WORK IN PROGRESS
 Config.Experts = {
     Explosives = {
         active = false, -- False means the ped/target won't create
@@ -133,7 +134,7 @@ Config.Experts = {
         },
     },
     Vehicles = {
-        active = true, -- False means the ped/target won't create
+        active = false, -- False means the ped/target won't create
         pedModel = "a_m_m_eastsa_02",
         pedName = "Vehicles Expert",
         Location = vector4(831.17, -3241.23, -99.7, 313.76),
@@ -213,8 +214,8 @@ Config.Shops = {
 -- Players add "Config.DirtyMoneyItem" to the machines inventory and at the below intervals
 -- It removes the chosen values and replcaes with the chosen clean values in "Config.CleanMoneyItem"
 Config.MoneyMachine = {
-    item = "money_machine",
-    objectModel = "bkr_prop_money_counter",
+    item = "money_machine", -- Name of item that will be placed down by a player
+    objectModel = "bkr_prop_money_counter", -- Prop that appears when item is plaecd down
     waitTimeBetweenRemovalInSeconds = {min = 3, max = 8},
     amountToRemove = {min = 2, max = 4},
     amountToGive = {min = 2, max = 2},
