@@ -12,12 +12,12 @@ RegisterNetEvent('moneywash:server:SetUpMachine', function(data, coords, heading
         local spawnedMachine = CreateObjectNoOffset(Config.MoneyMachine.objectModel, coords.x, coords.y, coords.z, true, true, false)
         FreezeEntityPosition(spawnedMachine, true)
         SetEntityHeading(spawnedMachine, heading)
-        local randomId = zutils.uuid()
+        local randomId = os.time()..""..math.random(1, 10000)
         Wait(250)
         local netId = NetworkGetNetworkIdFromEntity(spawnedMachine)
 
-        if not placedMachines[spawnedMachine] then
-            placedMachines[placedMachines] = {}
+        if not placedMachines[randomId] then
+            placedMachines[randomId] = {}
         end
 
         placedMachines[randomId] = {

@@ -6,7 +6,7 @@ local swapHook = exports.ox_inventory:registerHook('swapItems', function(payload
     end
 
     local machine = placedMachines[payload.toInventory]
-    if machine then
+    if not machine then
         return
     end
 
