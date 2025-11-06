@@ -11,7 +11,7 @@ local swapHook = exports.ox_inventory:registerHook('swapItems', function(payload
     end
 
     local itemName = payload.fromSlot.name
-    if itemName ~= 'markedbills' then
+    if itemName ~= Config.DirtyMoneyItem then
         return
     end
 
@@ -36,7 +36,7 @@ local swapHook = exports.ox_inventory:registerHook('swapItems', function(payload
                 return
             end
 
-            local dirtyMoneyFound = exports.ox_inventory:Search(payload.toInventory, 'slots', 'markedbills')
+            local dirtyMoneyFound = exports.ox_inventory:Search(payload.toInventory, 'slots', Config.DirtyMoneyItem)
 
             if not dirtyMoneyFound then
                 TriggerClientEvent('moneywash:client:TriggerWashingPTFX', payload.source, false, machine.coords)
@@ -44,20 +44,20 @@ local swapHook = exports.ox_inventory:registerHook('swapItems', function(payload
 
                 lib.notify(payload.source, {
                     title = 'Finished',
-                    description = "Your machine has no more marked bills to wash",
+                    description = "Your machine has no more "..Config.DirtyMoneyItem.." to wash",
                     type = 'success'
                 })
 
                 return
             end
             local randomAmount = math.random(2, 4)
-            if exports.ox_inventory:RemoveItem(payload.toInventory, 'markedbills', randomAmount, false) then
+            if exports.ox_inventory:RemoveItem(payload.toInventory, Config.DirtyMoneyItem, randomAmount, false) then
                 local placed = false
                 local machineInventory = exports.ox_inventory:GetInventoryItems(payload.toInventory)
 
                 for _, v in pairs(machineInventory) do
-                    if v.name == 'money' then
-                        exports.ox_inventory:AddItem(payload.toInventory, 'money', 2, nil, v.slot)
+                    if v.name == Config.CleanMoneyItem then
+                        exports.ox_inventory:AddItem(payload.toInventory, Config.CleanMoneyItem, 2, nil, v.slot)
                         placed = true
                         break
                     end
@@ -76,7 +76,7 @@ local swapHook = exports.ox_inventory:registerHook('swapItems', function(payload
 
                         return
                     end
-                    exports.ox_inventory:AddItem(payload.toInventory, 'money', 2, nil, emptySlot)
+                    exports.ox_inventory:AddItem(payload.toInventory, Config.CleanMoneyItem, 2, nil, emptySlot)
                 end
             else
                 TriggerClientEvent('moneywash:client:TriggerWashingPTFX', payload.source, false, machine.coords)

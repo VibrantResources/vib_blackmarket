@@ -13,8 +13,13 @@ RegisterNetEvent('moneywash:client:PlaceDownObject', function(data)
 
     local model = lib.requestModel(Config.MoneyMachine.objectModel, 60000)
     if not model then
-        QBCore.Functions.Notify("Couldn't load object model; timed out, this has a 60 second load time", "error", 3000)
+        lib.notify({
+            title = "Unable to load",
+            description = "Unable to load model: "..Config.MoneyMachine.objectModel,
+            type = "notif_type"
+        })
         machineInUse = false
+        
         return
     end
 
@@ -56,7 +61,6 @@ RegisterNetEvent('moneywash:client:PlaceDownObject', function(data)
         if IsControlJustPressed(2, 47) then
             lib.hideTextUI()
             DeleteEntity(ghost)
-            QBCore.Functions.Notify("You put the machine away", "inform", 3000)
             placing = false
         end
     end

@@ -42,10 +42,12 @@ RegisterNetEvent('moneywash:server:PickUpMachine', function(machineInfo)
     local playerPed = GetPlayerPed(source)
     local playerCoords = GetEntityCoords(playerPed)
     if #(playerCoords - machineInfo.args.coords) > 10.0 then
-        zutils.logger(source, 
-            "exploit", 
-            "fs_moneywash: Attempted to pick up a machine from too far away. Machine coords are: "..machineInfo.args.coords
-        )
+        lib.notify(source, {
+            title = "Unable",
+            description = "I'm too far away to do this",
+            type = "error"
+        })
+
         return
     end
 
@@ -62,7 +64,11 @@ RegisterNetEvent('moneywash:server:PickUpMachine', function(machineInfo)
                     { v.name, v.count },
                 }, playerCoords, 5, 10000, nil, `prop_money_bag_01`)
 
-                QBCore.Functions.Notify(source, "Inventory full", "error", 3000)
+                lib.notify(source, {
+                    title = "Unable To Carry",
+                    description = "Money dropped on floor",
+                    type = "inform"
+                })
             end
         end
 
@@ -75,6 +81,10 @@ RegisterNetEvent('moneywash:server:PickUpMachine', function(machineInfo)
             TriggerClientEvent('moneywash:client:TriggerWashingPTFX', source, false, machineInfo.args.coords)
         end
     else
-        QBCore.Functions.Notify(source, "Inventory full", "error", 3000)
+        lib.notify(source, {
+            title = "Unable",
+            description = "I don't have room",
+            type = "error"
+        })
     end
 end)
