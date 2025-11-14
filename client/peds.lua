@@ -1,5 +1,4 @@
 CreateThread(function()
-
     -------------------
     --Entering Market--
     -------------------

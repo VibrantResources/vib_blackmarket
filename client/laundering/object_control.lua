@@ -51,10 +51,18 @@ RegisterNetEvent('moneywash:client:PlaceDownObject', function(data)
 
         -- Place (E)
         if IsControlJustPressed(2, 38) then
-            lib.hideTextUI()
-            DeleteEntity(ghost)
-            TriggerServerEvent('moneywash:server:SetUpMachine', data, hitCoords, heading)
-            placing = false
+            if hit == 0 or #hitCoords == 0 then
+                lib.notify({
+                    title = "Unable",
+                    description = "Aim it at the floor",
+                    type = "error"
+                })
+            else
+                lib.hideTextUI()
+                DeleteEntity(ghost)
+                TriggerServerEvent('moneywash:server:SetUpMachine', data, hitCoords, heading)
+                placing = false
+            end
         end
 
         -- Cancel (G)
