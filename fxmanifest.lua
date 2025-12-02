@@ -10,13 +10,11 @@ description 'A blackmarket resource providing buying/selling shops, weapon knowl
 
 client_scripts {
 	'client/**/*.lua',
-	'menus/*.lua',
 	'menus/**/*.lua',
 	'ambient_peds/*.lua',
 }
 
 server_scripts  {
-	'server/*.lua',
 	'server/**/*.lua',
 }
 
